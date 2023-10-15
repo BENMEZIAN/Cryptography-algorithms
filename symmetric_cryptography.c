@@ -26,16 +26,16 @@ int getch();
 
 int main() {
 	
-	char message[100];
-	int key; // Variable to store the key value
-	char Vkey[10];
-	char* cryptedMessage = NULL;
-	char* decryptedMessage = NULL;
-	char encryptedMessagesub[ALPHABET_SIZE];
+    char message[100];
+    int key; // Variable to store the key value
+    char Vkey[10];
+    char* cryptedMessage = NULL;
+    char* decryptedMessage = NULL;
+    char encryptedMessagesub[ALPHABET_SIZE];
     char decryptedMessagesub[ALPHABET_SIZE];
     char shuffledAlphabetsub[ALPHABET_SIZE * 2];  // To store the permutation
     char ciphertext[100];
-	char decryptedText[100];
+    char decryptedText[100];
     int choice;
         
     printf("Donner un message pour crypter:");
@@ -52,68 +52,68 @@ int main() {
         printf("6.Decryptage par Substitution\n");
         printf("7.Cryptage par Transposition\n");
         printf("8.Decryptage par Transposition\n");
-		printf("9.Exit\n");
+	printf("9.Exit\n");
         printf("--------------------------------------\n");
         printf("Enter your choice:");
         scanf("%d",&choice);
         switch(choice){
             case 1: printf("Enter the key (an integer): ");
-                	scanf("%d", &key);
-					caesarEnc(message, key, &cryptedMessage);
-					printf("Original message: %s\n", message);
-					printf("Encrypted message: %s\n", cryptedMessage);
+                    scanf("%d", &key);
+		    caesarEnc(message, key, &cryptedMessage);
+		    printf("Original message: %s\n", message);
+		    printf("Encrypted message: %s\n", cryptedMessage);
             break;
                 
             case 2: printf("Enter the key (an integer): ");
-                	scanf("%d", &key);
-					caesarDec(cryptedMessage, key, &decryptedMessage);
-					printf("Encrypted message: %s\n", cryptedMessage);
-					printf("Decrypted message: %s\n", decryptedMessage);
-					free(cryptedMessage);
-					free(decryptedMessage);
+                    scanf("%d", &key);
+		    caesarDec(cryptedMessage, key, &decryptedMessage);
+	            printf("Encrypted message: %s\n", cryptedMessage);
+	   	    printf("Decrypted message: %s\n", decryptedMessage);
+		    free(cryptedMessage);
+		    free(decryptedMessage);
+            break;
+		
+	    case 3: printf("Enter the key (an string): ");
+                    scanf("%s", &Vkey);
+                    vigenereEnc(message, Vkey, &cryptedMessage);
+                    printf("Original message: %s\n", message);
+		    printf("Encrypted message: %s\n", cryptedMessage);
+	    break;
+			
+	    case 4: printf("Enter the key (an string): ");
+                    scanf("%s", &Vkey);
+		    vigenereDec(cryptedMessage, Vkey, &decryptedMessage);
+		    printf("Encrypted message: %s\n", cryptedMessage);
+		    printf("Decrypted message: %s\n", decryptedMessage);
+		    free(cryptedMessage);
+		    free(decryptedMessage);
+	    break;
+			
+	    case 5: SubstitutionEnc(message, encryptedMessagesub,shuffledAlphabetsub);
+		    printf("Original Message: %s\n", message);
+		    printf("Encrypted Message: %s\n", encryptedMessagesub);		
             break;
 			
-			case 3: printf("Enter the key (an string): ");
-                	scanf("%s", &Vkey);
-                	vigenereEnc(message, Vkey, &cryptedMessage);
-                	printf("Original message: %s\n", message);
-					printf("Encrypted message: %s\n", cryptedMessage);
-			break;
-			
-			case 4: printf("Enter the key (an string): ");
-                	scanf("%s", &Vkey);
-				    vigenereDec(cryptedMessage, Vkey, &decryptedMessage);
-				    printf("Encrypted message: %s\n", cryptedMessage);
-				    printf("Decrypted message: %s\n", decryptedMessage);
-				    free(cryptedMessage);
-					free(decryptedMessage);
-			break;
-			
-			case 5: SubstitutionEnc(message, encryptedMessagesub,shuffledAlphabetsub);
-				    printf("Original Message: %s\n", message);
-				    printf("Encrypted Message: %s\n", encryptedMessagesub);		
+	    case 6: SubstitutionDec(encryptedMessagesub, decryptedMessagesub, shuffledAlphabetsub);
+		    printf("Encrypted Message: %s\n", encryptedMessagesub);
+		    printf("Decrypted Message: %s\n", decryptedMessagesub);
             break;
 			
-			case 6: SubstitutionDec(encryptedMessagesub, decryptedMessagesub, shuffledAlphabetsub);
-					printf("Encrypted Message: %s\n", encryptedMessagesub);
-					printf("Decrypted Message: %s\n", decryptedMessagesub);
+	    case 7: printf("Enter the key (an integer): ");
+                    scanf("%d", &key);
+	   	    TranspositionEnc(message, ciphertext, key);
+		    printf("Message original: %s\n", message);
+		    printf("Message crypte: %s\n", ciphertext);
             break;
 			
-			case 7: printf("Enter the key (an integer): ");
-                	scanf("%d", &key);
-					TranspositionEnc(message, ciphertext, key);
-					printf("Message original: %s\n", message);
-					printf("Message crypte: %s\n", ciphertext);
-            break;
-			
-			case 8: printf("Enter the key (an integer): ");
-                	scanf("%d", &key);
-                	TranspositionDec(ciphertext, decryptedText, key);
-				    printf("Ciphertext: %s\n", ciphertext);
-				    printf("Decrypted Text: %s\n", decryptedText);
+	    case 8: printf("Enter the key (an integer): ");
+                    scanf("%d", &key);
+                    TranspositionDec(ciphertext, decryptedText, key);
+	            printf("Ciphertext: %s\n", ciphertext);
+		    printf("Decrypted Text: %s\n", decryptedText);
             break;
 			    
-			case 9: exit(0);
+	    case 9: exit(0);
             break;
 						   
             default: printf("Wrong Choice\n");
@@ -128,7 +128,7 @@ int main() {
 
 void caesarEnc(char* message, short key, char** ciphertext){
     
-	unsigned int i = 0;
+    unsigned int i = 0;
     int rang;
 
     *ciphertext = (char *)malloc(strlen(message) + 1);
@@ -186,7 +186,7 @@ void vigenereEnc(char* text,char* key, char** ciphertext){
 
 void vigenereDec(char* ciphertext, char* key, char** plaintext){
     
-	unsigned int i, size = strlen(key);
+    unsigned int i, size = strlen(key);
 
     *plaintext = (char *)malloc(strlen(ciphertext) + 1); // Allocate memory for the decrypted text
     if (*plaintext == NULL) {
